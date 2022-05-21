@@ -394,3 +394,6 @@ FodyWeavers.xsd
 # JetBrains Rider
 .idea/
 *.sln.iml
+/UE Explorer.backup/
+/Eliot.Utilities.backup/
+/Eliot.UELib.Demo.backup/

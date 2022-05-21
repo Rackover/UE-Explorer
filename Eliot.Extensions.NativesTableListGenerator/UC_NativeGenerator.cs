@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using UEExplorer.Development;
+using UEExplorer.UI;
 using UEExplorer.UI.Tabs;
 using UELib;
 using UELib.Core;
 using UELib.Flags;
-using UEExplorer.Development;
-using UEExplorer.UI;
 
 namespace Eliot.Extensions.NativesTableListGenerator
 {

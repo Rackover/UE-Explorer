@@ -1,10 +1,9 @@
 ﻿using System;
+using UEExplorer.Development;
+using UEExplorer.UI;
 
 namespace Eliot.Extensions.ExecGenerator
 {
-	using UEExplorer.Development;
-	using UEExplorer.UI;
-
 	[ExtensionTitle( "Exec Generator" )]
 	public class ExtExecGen : IExtension
 	{

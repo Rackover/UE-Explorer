@@ -5,13 +5,12 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using UEExplorer.UI.Tabs;
+using UELib;
+using UELib.Core;
+using UELib.Flags;
 
 namespace Eliot.Extensions.ExecGenerator
 {
-    using UELib;
-    using UELib.Core;
-    using UELib.Flags;
-
     [System.Runtime.InteropServices.ComVisible( false )]
     public partial class UC_ExecGenerator : UserControl_Tab
     {
