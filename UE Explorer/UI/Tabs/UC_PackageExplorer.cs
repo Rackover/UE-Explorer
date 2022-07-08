@@ -11,10 +11,12 @@ using System.Windows.Forms;
 using UEExplorer.Properties;
 using UEExplorer.UI.Forms;
 using UEExplorer.UI.Nodes;
+using UEExplorer.UI.Panels;
 using UELib.Annotations;
 
 namespace UEExplorer.UI.Tabs
 {
+using BrightIdeasSoftware;
     using Dialogs;
     using UELib;
     using UELib.Core;
@@ -484,6 +486,16 @@ namespace UEExplorer.UI.Tabs
                 TreeView_Content.Nodes.Add(objectNode);
             }
             TreeView_Content.EndUpdate();
+
+#if DEBUG
+            var objectsPage = new TabPage();
+            objectsPage.Dock = DockStyle.Fill;
+            var objectsPanel = new ObjectsPanel();
+            objectsPanel.Dock = DockStyle.Fill;
+            objectsPanel.InitializeTree(_UnrealPackage);
+            objectsPage.Controls.Add(objectsPanel);
+            TabControl_General.TabPages.Add(objectsPage);
+#endif
         }
 
         private void InitializeObjectNode(ObjectNode node)
@@ -1696,11 +1708,11 @@ namespace UEExplorer.UI.Tabs
                 case ObjectNode expandingObjectNode when expandingObjectNode.Object != null:
                 {
                     ExpandObjectNode(expandingObjectNode);
-                    var tableItem = expandingObjectNode.Object.Table;
+                    var obj = expandingObjectNode.Object;
                     foreach (var objectNode in
-                             from obj in _UnrealPackage.Exports
-                             where obj.OuterTable == tableItem || obj.ArchetypeTable == tableItem
-                             select CreateNode((UObjectTableItem)obj))
+                             from exp in _UnrealPackage.Exports
+                             where exp.OuterIndex == (int)obj
+                             select CreateNode(exp))
                     {
                         InitializeObjectNode(objectNode);
                         expandingObjectNode.Nodes.Add(objectNode);
@@ -1715,9 +1727,9 @@ namespace UEExplorer.UI.Tabs
                     {
                         if (_UnrealPackage.Imports != null)
                         {
-                            foreach (var importItem in _UnrealPackage.Imports.Where(table =>
-                                         table.OuterIndex == 0 && table.ClassName == "Package"))
-                                GetDependencyOn(importItem, e.Node.Nodes.Add(importItem.ObjectName));
+                            foreach (var item in _UnrealPackage.Imports.Where(imp =>
+                                         imp.OuterIndex == 0 && imp.ClassName == "Package"))
+                                GetDependencyOn(item, e.Node.Nodes.Add(item.ObjectName));
                         }
                     }
 
